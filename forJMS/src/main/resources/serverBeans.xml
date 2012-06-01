@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/jms
+                           http://www.springframework.org/schema/jms/spring-jms.xsd
+                           http://activemq.apache.org/schema/core
+                           http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+    <amq:broker id="broker" useJmx="false" persistent="false">
+        <amq:transportConnectors>
+            <amq:transportConnector uri="tcp://localhost:9091"/>
+        </amq:transportConnectors>
+    </amq:broker>
+
+    <amq:queue id="destination" physicalName="org.springbyexample.jms.test"/>
+
+    <amq:connectionFactory id="jmsFactory" brokerURL="tcp://localhost:9091"/>
+
+    <!-- JMS Consumer Configuration -->
+    <bean id="jmsConsumerConnectionFactory"
+          class="org.springframework.jms.connection.SingleConnectionFactory"
+          depends-on="broker"
+          p:targetConnectionFactory-ref="jmsFactory"/>
+
+    <bean id="jmsMessageListener" class="server.Server"/>
+
+    <jms:listener-container container-type="default"
+                            connection-factory="jmsConsumerConnectionFactory"
+                            acknowledge="auto">
+        <jms:listener destination="org.springbyexample.jms.test" ref="jmsMessageListener"/>
+    </jms:listener-container>
+
+</beans>

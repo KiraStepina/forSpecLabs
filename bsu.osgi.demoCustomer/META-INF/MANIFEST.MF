@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DemoCustomer
+Bundle-SymbolicName: bsu.osgi.demoCustomer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: bsu.osgi.democustomer.Activator
+Import-Package: bsu.osgi.demoInterf,
+ org.osgi.framework;version="1.3.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: bsu.osgi.demoInterf;bundle-version="1.0.0",
+ bsu.osgi.demoFactory;bundle-version="1.0.0"

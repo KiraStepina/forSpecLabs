@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: TestPlugin
+Bundle-SymbolicName: TestPlugin
+Bundle-Version: 1.0.0.qualificator
+Bundle-Activator: bsu.osgi.demoplugin.Activator
+Import-Package: bsu.osgi.demoInterf,
+ org.osgi.framework;version="1.3.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
